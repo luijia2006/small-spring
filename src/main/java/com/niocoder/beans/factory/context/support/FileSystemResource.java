@@ -1,6 +1,6 @@
-package com.niocoder.beans.factory.content.support;
+package com.niocoder.beans.factory.context.support;
 
-import com.niocoder.beans.factory.content.Resource;
+import com.niocoder.beans.factory.context.Resource;
 
 import java.io.File;
 import java.io.FileInputStream;

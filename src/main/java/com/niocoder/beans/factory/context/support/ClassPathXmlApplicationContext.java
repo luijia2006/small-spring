@@ -1,8 +1,7 @@
-package com.niocoder.beans.factory.content.support;
+package com.niocoder.beans.factory.context.support;
 
-import com.niocoder.beans.factory.content.ApplicationContext;
-import com.niocoder.beans.factory.content.Resource;
-import com.niocoder.beans.factory.support.DefaultBeanFactory;
+import com.niocoder.beans.factory.context.ApplicationContext;
+import com.niocoder.beans.factory.context.Resource;
 
 public class ClassPathXmlApplicationContext extends AbstractApplicationContext implements ApplicationContext {
 

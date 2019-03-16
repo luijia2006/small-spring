@@ -1,4 +1,4 @@
-package com.niocoder.beans.factory.content;
+package com.niocoder.beans.factory.context;
 
 import java.io.IOException;
 import java.io.InputStream;

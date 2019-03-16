@@ -1,14 +1,8 @@
 package com.niocoder.test.v1;
 
-import com.niocoder.beans.BeanDefinition;
-import com.niocoder.beans.factory.BeanCreationException;
-import com.niocoder.beans.factory.BeanDefinitionRegistry;
-import com.niocoder.beans.factory.BeanDefinitionStoreException;
-import com.niocoder.beans.factory.content.ApplicationContext;
-import com.niocoder.beans.factory.content.support.ClassPathXmlApplicationContext;
-import com.niocoder.beans.factory.content.support.FileSystemXmlApplicationContext;
-import com.niocoder.beans.factory.support.DefaultBeanFactory;
-import com.niocoder.beans.factory.support.XmlBeanDefinitionReader;
+import com.niocoder.beans.factory.context.ApplicationContext;
+import com.niocoder.beans.factory.context.support.ClassPathXmlApplicationContext;
+import com.niocoder.beans.factory.context.support.FileSystemXmlApplicationContext;
 import com.niocoder.service.v1.NioCoderService;
 import org.junit.Assert;
 import org.junit.Test;
