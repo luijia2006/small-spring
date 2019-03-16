@@ -1,8 +1,10 @@
 package com.niocoder.beans.factory.support;
 
 import com.niocoder.beans.BeanDefinition;
+import com.niocoder.beans.factory.BeanDefinitionRegistry;
 import com.niocoder.beans.factory.BeanDefinitionStoreException;
 import com.niocoder.beans.factory.BeanFactory;
+import com.niocoder.beans.factory.content.Resource;
 import com.niocoder.util.ClassUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -17,19 +19,16 @@ public class XmlBeanDefinitionReader {
 
     private static final String CLASS_ATTRIBUTE = "class";
 
-    BeanFactory beanFactory;
-    public XmlBeanDefinitionReader(BeanFactory beanFactory) {
+    BeanDefinitionRegistry beanFactory;
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry beanFactory) {
         this.beanFactory = beanFactory;
 
     }
     /**
      * 具体解析bean.xml的方法 使用dom4j
-     *
-     * @param configFile
      */
-    public void loadBeanDefinition(String configFile) {
-        ClassLoader cl = ClassUtils.getDefaultClassLoader();
-        try (InputStream is = cl.getResourceAsStream(configFile)) {
+    public void loadBeanDefinition(Resource resource) {
+        try (InputStream is = resource.getInputStream()) {
             SAXReader reader = new SAXReader();
             Document doc = reader.read(is);
 

@@ -9,24 +9,10 @@ import com.niocoder.beans.BeanDefinition;
 public interface BeanFactory {
 
     /**
-     * 获取bean的定义
-     * @param beanId
-     * @return
-     */
-    BeanDefinition getBeanDefinition(String beanId);
-
-    /**
      * 获取bean的实例
      * @param beanId
      * @return
      */
     Object getBean(String beanId);
 
-
-    /**
-     * 注册 BeanDefinition
-     * @param beanID
-     * @param bd
-     */
-    void registerBeanDefinition(String beanID, BeanDefinition bd);
 }

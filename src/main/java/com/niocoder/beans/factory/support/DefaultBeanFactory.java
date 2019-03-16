@@ -2,6 +2,7 @@ package com.niocoder.beans.factory.support;
 
 import com.niocoder.beans.BeanDefinition;
 import com.niocoder.beans.factory.BeanCreationException;
+import com.niocoder.beans.factory.BeanDefinitionRegistry;
 import com.niocoder.beans.factory.BeanFactory;
 import com.niocoder.util.ClassUtils;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author zhenglongfei
  */
-public class DefaultBeanFactory implements BeanFactory {
+public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry {
 
     /**
      * 存放BeanDefinition

@@ -5,12 +5,27 @@
 BeanFactory(一)中，我们用DefaultBeanFactory读取bean.xlm中的bean信息，并且也实现了BeanFactory的getBean()方法。
 但是实现的方式有些不友好，本章，我们将优化和完善BeanFactory。
 
-
-你会发现在DefaultBeanFactory中存在读取bean.xml和反射创建对象两种操作，这不符合设计模式的单一职责。
-因此我们新增加一个XmlBeanDefinitionReader来读取bean.xml。
-但解析的BeanDefinition如何交给BeanFactory处理呢？
-这里我们可以在BeanFactory接口中增加registerBeanDefinition(String beanID, BeanDefinition bd)方法，
-将XmlBeanDefinitionReader解析的BeanDefinition注册到BeanFactory中。
-(此时XmlBeanDefinitionReader中需要持有一个BeanFactory的实例)。
-类图如下: 
-https://raw.githubusercontent.com/longfeizheng/longfeizheng.github.io/master/images/spring/beanfactory_v2_1.png
+###2.1.2
+我们再来重新审视一下BeanFactory接口中的方法，
+它现在除了getBean(String beanId)方法之外，
+还有getBeanDefinition(String beanId)和registerBeanDefinition(String beanID, BeanDefinition bd)。
+registerBeanDefinition()是用于XmlBeanDefinitionReader使用的，
+XmlBeanDefinitionReader持有BeanFactory的实例，
+那么它也会知道BeanFactory的getBean()方法，
+并且BeanFactory我们只想用它来获取bean的实例,不想对外暴露太多，
+所以我们新增一个BeanDefinitionRegistry接口来注册和获取BeanDefinition
+###2.1.3
+观察一下测试类BeanFactoryTest,当我们每次使用BeanFactory获取实例时，
+都需要使用到XmlBeanDefinitionReader的loadBeanDefinition方法。
+这有一些麻烦，我们该如何封装一下呢？
+这里我们新增一个ApplicationContext接口来封装这些操作。
+但由于配置文件的不确定性，有的可能存在classpath目录下，
+有的可能存在磁盘的目录下，又或者内存，网络等等。
+这里我们就简单的实现从classpath和磁盘目录两种情况。
+对应的ClassPathXmlApplicationContext和FileSystemXmlApplicationContext。
+由于ClassPathXmlApplicationContext和FileSystemXmlApplicationContext都需要读取文件，
+所以我们提取出来一个Resource接口
+###2.1.4
+重复代码时万恶之源。
+在 ClassPathXmlApplicationContext和FileSystemXmlApplicationContext的 的构造方法中有冗余代码，
+因此我们可以考虑使用模板方法来处理一下AbstractApplicationContext 
