@@ -1,4 +1,4 @@
-package com.niocoder.beans.factory.context;
+package com.niocoder.context;
 
 import com.niocoder.beans.factory.BeanFactory;
 

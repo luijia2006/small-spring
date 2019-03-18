@@ -1,4 +1,4 @@
-package com.niocoder.beans.factory;
+package com.niocoder.beans.factory.support;
 
 import com.niocoder.beans.BeanDefinition;
 

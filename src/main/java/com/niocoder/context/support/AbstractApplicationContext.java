@@ -1,9 +1,9 @@
-package com.niocoder.beans.factory.context.support;
+package com.niocoder.context.support;
 
-import com.niocoder.beans.factory.context.ApplicationContext;
-import com.niocoder.beans.factory.context.Resource;
+import com.niocoder.context.ApplicationContext;
+import com.niocoder.core.io.Resource;
 import com.niocoder.beans.factory.support.DefaultBeanFactory;
-import com.niocoder.beans.factory.support.XmlBeanDefinitionReader;
+import com.niocoder.beans.factory.xml.XmlBeanDefinitionReader;
 
 public abstract class AbstractApplicationContext implements ApplicationContext {
     private DefaultBeanFactory factory = null;

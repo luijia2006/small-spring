@@ -1,8 +1,8 @@
 package com.niocoder.test.v1;
 
-import com.niocoder.beans.factory.context.ApplicationContext;
-import com.niocoder.beans.factory.context.support.ClassPathXmlApplicationContext;
-import com.niocoder.beans.factory.context.support.FileSystemXmlApplicationContext;
+import com.niocoder.context.ApplicationContext;
+import com.niocoder.context.support.ClassPathXmlApplicationContext;
+import com.niocoder.context.support.FileSystemXmlApplicationContext;
 import com.niocoder.service.v1.NioCoderService;
 import org.junit.Assert;
 import org.junit.Test;

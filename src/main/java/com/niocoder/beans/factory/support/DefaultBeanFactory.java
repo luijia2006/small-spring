@@ -2,7 +2,6 @@ package com.niocoder.beans.factory.support;
 
 import com.niocoder.beans.BeanDefinition;
 import com.niocoder.beans.factory.BeanCreationException;
-import com.niocoder.beans.factory.BeanDefinitionRegistry;
 import com.niocoder.beans.factory.BeanFactory;
 import com.niocoder.util.ClassUtils;
 
@@ -15,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author zhenglongfei
  */
-public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry {
+public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory,BeanDefinitionRegistry {
 
     /**
      * 存放BeanDefinition
@@ -31,18 +30,29 @@ public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry {
     public Object getBean(String beanId) {
         BeanDefinition bd = this.getBeanDefinition(beanId);
         if (bd == null) {
-            throw new BeanCreationException("BeanDefinition does not exist");
+            return null;
         }
-        ClassLoader cl = ClassUtils.getDefaultClassLoader();
+        if (bd.isSingleton()) {
+            Object bean = this.getSingleton(beanId);
+            if (bean==null) {
+                bean = this.createBean(bd);
+                this.registerSingleton(beanId,bean);
+            }
+            return bean;
+        }
+        return createBean(bd);
+    }
 
+    private Object createBean(BeanDefinition bd) {
+        ClassLoader cl = ClassUtils.getDefaultClassLoader();
         String beanClassName = bd.getBeanClassName();
         try {
-            // 使用反射创建bean的实例，需要对象存在默认的无参构造方法
             Class<?> clz = cl.loadClass(beanClassName);
             return clz.newInstance();
         } catch (Exception e) {
-            throw new BeanCreationException("Bean Definition does not exist");
+            throw new BeanCreationException("create bean for " + beanClassName + " failed", e);
         }
+
     }
 
     @Override

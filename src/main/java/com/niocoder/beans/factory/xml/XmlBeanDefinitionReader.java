@@ -1,9 +1,10 @@
-package com.niocoder.beans.factory.support;
+package com.niocoder.beans.factory.xml;
 
 import com.niocoder.beans.BeanDefinition;
-import com.niocoder.beans.factory.BeanDefinitionRegistry;
+import com.niocoder.beans.factory.support.BeanDefinitionRegistry;
 import com.niocoder.beans.factory.BeanDefinitionStoreException;
-import com.niocoder.beans.factory.context.Resource;
+import com.niocoder.beans.factory.support.GenericBeanDefinition;
+import com.niocoder.core.io.Resource;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -16,6 +17,8 @@ public class XmlBeanDefinitionReader {
     private static final String ID_ATTRIBUTE = "id";
 
     private static final String CLASS_ATTRIBUTE = "class";
+
+    private static final String SCOPE_ATTRIBUTE = "scope";
 
     BeanDefinitionRegistry beanFactory;
     public XmlBeanDefinitionReader(BeanDefinitionRegistry beanFactory) {
@@ -37,6 +40,9 @@ public class XmlBeanDefinitionReader {
                 String id = ele.attributeValue(ID_ATTRIBUTE);
                 String beanClassName = ele.attributeValue(CLASS_ATTRIBUTE);
                 BeanDefinition bd = new GenericBeanDefinition(id, beanClassName);
+                if (ele.attributeValue(SCOPE_ATTRIBUTE) != null) {
+                    bd.setScope(ele.attributeValue(SCOPE_ATTRIBUTE));
+                }
                 this.beanFactory.registerBeanDefinition(id, bd);
             }
         } catch (Exception e) {

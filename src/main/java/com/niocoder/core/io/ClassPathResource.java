@@ -1,6 +1,6 @@
-package com.niocoder.beans.factory.context.support;
+package com.niocoder.core.io;
 
-import com.niocoder.beans.factory.context.Resource;
+import com.niocoder.core.io.Resource;
 import com.niocoder.util.ClassUtils;
 
 import java.io.*;
