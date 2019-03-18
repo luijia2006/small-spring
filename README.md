@@ -1,7 +1,5 @@
 # small-spring
 简版spring
 ##V3.0,单例模式添加
-至此已经完成了增加BeanDefinitionRegistry实现接口单一职责,
-ApplicationContext封装bean.xml的解析和实例化。
-接下来我们来处理scope的问题。这里我们只是简单区分一下一个bean是否单例。
-为了实现接口细粒度化，我们新增SingletonBeanRegistry来区分一个bean是否单例。
+我们用BeanDefinition表达了<bean>标签中的 id和class属性，对应的<property>标签该如何表达呢？
+还有<property>里面的ref和value？
