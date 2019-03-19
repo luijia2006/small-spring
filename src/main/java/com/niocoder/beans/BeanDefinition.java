@@ -50,4 +50,36 @@ public interface BeanDefinition {
      * @return
      */
     List<PropertyValue> getPropertyValues();
+
+    /**
+     * 获取bean.xml 中的 constructor-arg 标签的内容 <constructor-arg ref="accountDao"/>
+     *
+     * @return
+     */
+    ConstructorArgument getConstructorArgument();
+
+    /**
+     * 获取bean 的 id
+     *
+     * @return
+     */
+    String getId();
+
+    /**
+     * 判断bean是否有构造参数
+     *
+     * @return
+     */
+    boolean hasConstructorArgumentValues();
+    /**
+     * 获取beanClass
+     *
+     * @return
+     */
+    Class getBeanClass();
+
+    /**
+     * 设置beanClass
+     */
+    void setBeanClass(Class beanClass);
 }

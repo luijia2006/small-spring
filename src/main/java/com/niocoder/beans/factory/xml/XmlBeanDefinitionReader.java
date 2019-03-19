@@ -1,6 +1,7 @@
 package com.niocoder.beans.factory.xml;
 
 import com.niocoder.beans.BeanDefinition;
+import com.niocoder.beans.ConstructorArgument;
 import com.niocoder.beans.PropertyValue;
 import com.niocoder.beans.factory.config.RuntimeBeanReference;
 import com.niocoder.beans.factory.config.TypedStringValue;
@@ -34,6 +35,10 @@ public class XmlBeanDefinitionReader {
 
     private static final String NAME_ATTRIBUTE = "name";
 
+    public static final String CONSTRUCTOR_ARG_ELEMENT = "constructor-arg";
+
+    public static final String TYPE_ATTRIBUTE = "type";
+
     BeanDefinitionRegistry registry;
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         this.registry = registry;
@@ -57,8 +62,11 @@ public class XmlBeanDefinitionReader {
                 if (ele.attributeValue(SCOPE_ATTRIBUTE) != null) {
                     bd.setScope(ele.attributeValue(SCOPE_ATTRIBUTE));
                 }
+                //解析构造器
+                parseConstructorArgElements(ele, bd);
                 // 解析property标签
                 parsePropertyElement(ele, bd);
+
                 this.registry.registerBeanDefinition(id, bd);
             }
         } catch (Exception e) {
@@ -80,6 +88,30 @@ public class XmlBeanDefinitionReader {
             bd.getPropertyValues().add(pv);
         }
     }
+
+    private void parseConstructorArgElements(Element ele, BeanDefinition bd) {
+        Iterator iterator = ele.elementIterator(CONSTRUCTOR_ARG_ELEMENT);
+        while (iterator.hasNext()) {
+            Element element = (Element) iterator.next();
+            parseConstructorArgElement(element, bd);
+        }
+    }
+
+    private void parseConstructorArgElement(Element element, BeanDefinition bd) {
+        String typeAttr = element.attributeValue(TYPE_ATTRIBUTE);
+        String nameAttr = element.attributeValue(NAME_ATTRIBUTE);
+        Object value = parsePropertyValue(element, bd, null);
+        ConstructorArgument.ValueHolder valueHolder = new ConstructorArgument.ValueHolder(value);
+        if (StringUtils.hasLength(typeAttr)) {
+            valueHolder.setType(typeAttr);
+        }
+        if (StringUtils.hasLength(nameAttr)) {
+            valueHolder.setName(nameAttr);
+        }
+
+        bd.getConstructorArgument().addArgumentValue(valueHolder);
+    }
+
     private Object parsePropertyValue(Element propElem, BeanDefinition bd, String propertyName) {
         String elementName = (propertyName != null) ?
                 "<property> element for property '" + propertyName + "'" :
@@ -104,4 +136,5 @@ public class XmlBeanDefinitionReader {
             throw new RuntimeException(elementName + " must specify a ref or value");
         }
     }
+
 }
