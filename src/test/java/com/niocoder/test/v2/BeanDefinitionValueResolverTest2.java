@@ -11,7 +11,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ *
+ */
 public class BeanDefinitionValueResolverTest2 {
+
     DefaultBeanFactory factory = null;
     XmlBeanDefinitionReader reader = null;
     BeanDefinitionValueResolver resolver = null;
