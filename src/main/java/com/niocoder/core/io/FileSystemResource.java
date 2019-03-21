@@ -1,7 +1,5 @@
 package com.niocoder.core.io;
 
-import com.niocoder.core.io.Resource;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,10 +13,13 @@ public class FileSystemResource implements Resource {
         this.path = path;
         this.file = new File(path);
     }
-
+    public FileSystemResource(File file) {
+        this.path = file.getPath();
+        this.file = file;
+    }
     @Override
     public InputStream getInputStream() throws IOException {
-        return new FileInputStream(file);
+        return new FileInputStream(this.file);
     }
 
     @Override
