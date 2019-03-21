@@ -5,6 +5,9 @@ import com.niocoder.core.io.support.PackageResourceLoader;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ *
+ */
 public class PackageResourcesLoaderTest {
 
     @Test

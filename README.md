@@ -5,14 +5,6 @@
 
 思路如下:
 
-读取xml文件
-对指定base-package进行扫描,找到对应那些标记为@Component的类，创建BeanDefinition
-把base-package下面的class变成Resource
-使用ASM读取Resource中的注解信息
-创建BeanDefinition
-通过BeanDefinition创建Bean的实例，根据注解来注入
-
-在Small Spring系列五：annotation Injection(一)中，
-我们已经通过PackageResourceLoader将指定包下面的class文件转变为Resource资源。
-本章我们实现通过ASM读取Resource中的注解信息并创建BeanDefinition。
-关于ASM读取类信息可参考链接,由于spring已经封装好读取操作，我们就不重复造轮子了。
+优化ASM读取类信息
+我们现在想要读取类信息和注解信息需要使用ClassReader和AnnotationMetadataReadingVisitor,ClassReader还是在ASM包下。
+这样使用起来不太方便，耦合性很高。因此我们准备在spring的基础上再次封装一下，类图如下:。
