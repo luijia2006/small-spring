@@ -11,3 +11,8 @@
 使用ASM读取Resource中的注解信息
 创建BeanDefinition
 通过BeanDefinition创建Bean的实例，根据注解来注入
+
+在Small Spring系列五：annotation Injection(一)中，
+我们已经通过PackageResourceLoader将指定包下面的class文件转变为Resource资源。
+本章我们实现通过ASM读取Resource中的注解信息并创建BeanDefinition。
+关于ASM读取类信息可参考链接,由于spring已经封装好读取操作，我们就不重复造轮子了。
