@@ -1,18 +1,14 @@
-/*
-package com.niocoder.core.type;
+package com.niocoder.core.type.classreading;
 
 import com.niocoder.util.ClassUtils;
 import org.springframework.asm.ClassVisitor;
 import org.springframework.asm.Opcodes;
 import org.springframework.asm.SpringAsmInfo;
 
-*/
 /**
  * 读取class文件，获取类名，判断是否为接口，是否抽象，是否final,父类，实现接口数量等
  *
- * @author zhenglongfei
- *//*
-
+ */
 public class ClassMetadataReadingVisitor extends ClassVisitor {
 
     private String className;
@@ -77,4 +73,4 @@ public class ClassMetadataReadingVisitor extends ClassVisitor {
     public String[] getInterfaces() {
         return interfaces;
     }
-}*/
+}
