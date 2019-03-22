@@ -3,8 +3,9 @@
 ##annotation_injection
 前两章我们已经实现了setter注入和constructor注入，本章我们来继续实现annotation注入。
 
-思路如下:
+我们已经完成了使用ASM获取类和注解信息,接下来我们需要根据扫面的注解(Componse)创建对应的BeanDefinition并注册到BeanFactory中。
 
-优化ASM读取类信息
-我们现在想要读取类信息和注解信息需要使用ClassReader和AnnotationMetadataReadingVisitor,ClassReader还是在ASM包下。
-这样使用起来不太方便，耦合性很高。因此我们准备在spring的基础上再次封装一下，类图如下:。
+我们之前通过bean.xml获取的BeanDefinition默认为GenericBeanDefinition,
+但现在我们需要通过扫描创建BeanDefinition,为了不影响之前的业务,
+我们新增一个AnnotatedBeanDefinition的接口表明为注解得到的BeanDefinition,
+默认实现类为ScannedGenericBeanDefinition。
