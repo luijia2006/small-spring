@@ -1,11 +1,25 @@
 # small-spring
 简版spring
 ##annotation_injection
-前两章我们已经实现了setter注入和constructor注入，本章我们来继续实现annotation注入。
+前两章我们已经完成了使用ASM读取Annotation、新增SimpleMetadataReader封装了复杂的Vister、
+同时引入了AnnotatedBeanDefinition和ScannedGenericBeanDefinition表明注解扫描的BeanDefinition。
+本章我们来实现最后的Field Injection
 
-我们已经完成了使用ASM获取类和注解信息,接下来我们需要根据扫面的注解(Componse)创建对应的BeanDefinition并注册到BeanFactory中。
+要实现Field Injection 我们需要根据class类型从BeanFactory中获取一个对象然后注入。
+即需要在BeanFactory新增一个BeanFactory.resolveDepency(Class type)方法,
+如果type为AccountDao则找到(或创建)对应的实例并且返回。
 
-我们之前通过bean.xml获取的BeanDefinition默认为GenericBeanDefinition,
-但现在我们需要通过扫描创建BeanDefinition,为了不影响之前的业务,
-我们新增一个AnnotatedBeanDefinition的接口表明为注解得到的BeanDefinition,
-默认实现类为ScannedGenericBeanDefinition。
+这么一看，貌似是可行的,但我们在使用Spring的@Autowired注解时发现，
+该注解可以应用于构造器注入、属性注入和setter注入。
+spring提供了一个DependencyDescriptor来封装@Autowired所有情况。
+
+再有我们确定要把resolveDependency方法放置到BeanFactory中吗？
+BeanFactory是我们的一个顶级接口，我们不希望对外暴露太多的方法,
+所以我们新增一个AutowireCapableBeanFactory接口,
+在AutowireCapableBeanFactory中增加resolveDependency方法。
+AutowireCapableBeanFactory继承BeanFactory。
+
+上面我们已经可以通过class类型来获取bean的实例了，那么怎么才能实现自动注入呢？
+
+首先我们需要一个类含有targetClass和一个集合的属性列表List<Class>,
+每个集合中的元素调用各自的inject(taget)方法(反射)从而实现属性注入。

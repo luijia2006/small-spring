@@ -82,4 +82,8 @@ public interface BeanDefinition {
      * 设置beanClass
      */
     void setBeanClass(Class beanClass);
+
+    public boolean hasBeanClass();
+
+    public Class<?> resolveBeanClass(ClassLoader beanClassLoader) throws ClassNotFoundException;
 }

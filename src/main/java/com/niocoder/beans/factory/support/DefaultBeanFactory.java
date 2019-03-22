@@ -5,6 +5,8 @@ import com.niocoder.beans.PropertyValue;
 import com.niocoder.beans.SimpleTypeConverter;
 import com.niocoder.beans.factory.BeanCreationException;
 import com.niocoder.beans.factory.BeanFactory;
+import com.niocoder.beans.factory.config.AutowireCapableBeanFactory;
+import com.niocoder.beans.factory.config.DependencyDescriptor;
 import com.niocoder.util.ClassUtils;
 
 import java.beans.BeanInfo;
@@ -18,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * BeanFactory的默认实现类
  */
-public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory,BeanDefinitionRegistry {
+public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements AutowireCapableBeanFactory,BeanDefinitionRegistry {
 
     /**
      * 存放BeanDefinition
@@ -115,5 +117,31 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     @Override
     public void registerBeanDefinition(String beanID, BeanDefinition bd) {
         this.beanDefinitionMap.put(beanID, bd);
+    }
+
+    @Override
+    public Object resolveDependency(DependencyDescriptor descriptor) {
+        Class<?> typeToMatch = descriptor.getDependencyType();
+        for (BeanDefinition bd : this.beanDefinitionMap.values()) {
+            // 确保BeanDefinition 有Class对象,而不是class的字符串
+            resolveBeanClass(bd);
+            Class<?> beanClass = bd.getBeanClass();
+            if (typeToMatch.isAssignableFrom(beanClass)) {
+                return this.getBean(bd.getId());
+            }
+        }
+        return null;
+    }
+
+    public void resolveBeanClass(BeanDefinition bd) {
+        if (bd.hasBeanClass()) {
+            return;
+        } else {
+            try {
+                bd.resolveBeanClass(ClassUtils.getDefaultClassLoader());
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("can't load class" + bd.getBeanClassName());
+            }
+        }
     }
 }
