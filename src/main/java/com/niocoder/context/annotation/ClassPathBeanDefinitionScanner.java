@@ -59,7 +59,6 @@ public class ClassPathBeanDefinitionScanner {
             for (BeanDefinition candidate : candidates) {
                 beanDefinitions.add(candidate);
                 registry.registerBeanDefinition(candidate.getId(), candidate);
-
             }
         }
         return beanDefinitions;

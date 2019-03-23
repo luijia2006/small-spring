@@ -1,9 +1,10 @@
 package com.niocoder.core.io;
 
-import com.niocoder.core.io.Resource;
 import com.niocoder.util.ClassUtils;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ClassPathResource implements Resource {
     private String path;
