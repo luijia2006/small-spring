@@ -31,5 +31,14 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.13" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: org.springframework:spring-core-cglib:3.2.18.RELEASE">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/spring-core-cglib-3.2.18.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
