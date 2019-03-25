@@ -1,7 +1,5 @@
 package com.niocoder.beans.factory;
 
-import com.niocoder.beans.BeanDefinition;
-
 /**
  * 创建bean的实例
  * @author zhenglongfei
@@ -14,5 +12,14 @@ public interface BeanFactory {
      * @return
      */
     Object getBean(String beanId);
+
+    /**
+     * 根据bean 名称 返回 class 对象
+     *
+     * @param name
+     * @return
+     */
+    Class<?> getType(String name) throws NoSuchBeanDefinitionException;
+
 
 }

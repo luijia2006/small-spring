@@ -1,5 +1,6 @@
 package com.niocoder.context.support;
 
+import com.niocoder.beans.factory.NoSuchBeanDefinitionException;
 import com.niocoder.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import com.niocoder.beans.factory.config.ConfigurableBeanFactory;
 import com.niocoder.context.ApplicationContext;
@@ -20,14 +21,19 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
 
     public abstract Resource getResourceByPath(String configFile);
 
+    protected void registerBeanPostProcessors(ConfigurableBeanFactory beanFactory) {
+        AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
+        processor.setBeanFactory(factory);
+        beanFactory.addBeanPostProcessor(processor);
+    }
+
     @Override
     public Object getBean(String beanId) {
         return factory.getBean(beanId);
     }
 
-    protected void registerBeanPostProcessors(ConfigurableBeanFactory beanFactory) {
-        AutowiredAnnotationBeanPostProcessor processor = new AutowiredAnnotationBeanPostProcessor();
-        processor.setBeanFactory(factory);
-        beanFactory.addBeanPostProcessor(processor);
+    @Override
+    public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
+        return this.factory.getType(name);
     }
 }

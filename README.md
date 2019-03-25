@@ -1,5 +1,6 @@
 # small-spring
 简版spring
-##annotation_injection
-以上我们只是通过手动的将NioCoderService转变成了InjectionMetadata并且调用inject方法,
-从而实现了Field Injection,我们需要一个类来自动帮我们处理这些操作。
+##AOP
+我们终于不辱使命完成了Spring的注解注入，接下来我们要实现更为关键aop部分，
+在这开始之前你需要了解什么事aop以及aop的常用术语
+参考链接:http://www.cnblogs.com/songanwei/p/9417343.html

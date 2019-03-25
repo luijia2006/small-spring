@@ -11,6 +11,8 @@ import org.junit.Test;
  */
 public class XmlBeanDefinitionReaderTest {
 
+
+
     @Test
     public void testParseScannerBean() {
         DefaultBeanFactory factory = new DefaultBeanFactory();

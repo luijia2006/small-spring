@@ -5,6 +5,7 @@ import com.niocoder.beans.PropertyValue;
 import com.niocoder.beans.SimpleTypeConverter;
 import com.niocoder.beans.factory.BeanCreationException;
 import com.niocoder.beans.factory.BeanFactory;
+import com.niocoder.beans.factory.NoSuchBeanDefinitionException;
 import com.niocoder.beans.factory.config.*;
 import com.niocoder.util.ClassUtils;
 
@@ -165,4 +166,16 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
     }
+
+    @Override
+    public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
+        BeanDefinition bd = this.getBeanDefinition(name);
+        if (null == bd) {
+            throw new NoSuchBeanDefinitionException(name);
+        }
+        resolveBeanClass(bd);
+
+        return bd.getBeanClass();
+    }
+
 }
