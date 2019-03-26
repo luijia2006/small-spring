@@ -1,12 +1,7 @@
 # small-spring
 简版spring
 ##AOP
-到目前位置,关于aop的部分，我们已经完成了以下功能
-
-根据Bean的名称和方法名，获取Method对象。MethodLocatingFactory
-给定一个类的方法，判断该方法是否符合Pointcut的表达式。AspectJExpressionPointcut
-实现了前置,后置和异常的通知。
-AspectJBeforeAdvice,AspectJAfterReturningAdvice,AspectJAfterThrowingAdvice
-实现了Advice按次续依次执行。ReflectiveMethodInvocation
-给定一个AopConfig，使用Cglib生成一个对象的代理。
+在前四篇,我们已经实现了使用Cglib实现了aop动态代理。
+但是在spring中如果代理对象实现了接口，则默认使用jdk动态代理，也可以通过配置强制使用cglib代理。
+本篇，我们使用jdk动态代理来完善aop
 接下来只剩下最后一个工作，读取bean-v5.xml创建BeanDefinition。
