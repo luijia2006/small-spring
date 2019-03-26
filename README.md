@@ -8,5 +8,5 @@
 实现了前置,后置和异常的通知。
 AspectJBeforeAdvice,AspectJAfterReturningAdvice,AspectJAfterThrowingAdvice
 实现了Advice按次续依次执行。ReflectiveMethodInvocation
-给定一个AopConif，使用Cglib生成一个对象的代理。
+给定一个AopConfig，使用Cglib生成一个对象的代理。
 接下来只剩下最后一个工作，读取bean-v5.xml创建BeanDefinition。
