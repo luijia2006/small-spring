@@ -83,7 +83,26 @@ public interface BeanDefinition {
      */
     void setBeanClass(Class beanClass);
 
+    /**
+     * 判断是否有beanClass
+     *
+     * @return
+     */
     public boolean hasBeanClass();
 
+    /**
+     * 缓存beanClass
+     *
+     * @param beanClassLoader
+     * @return
+     * @throws ClassNotFoundException
+     */
     public Class<?> resolveBeanClass(ClassLoader beanClassLoader) throws ClassNotFoundException;
+
+    /**
+     * 是否是合成的 bean
+     *
+     * @return
+     */
+    boolean isSynthetic();
 }

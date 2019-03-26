@@ -18,13 +18,21 @@ public class GenericBeanDefinition implements BeanDefinition {
     private boolean singleton = true;
     private boolean prototype = false;
     private String scope = SCOPE_DEFAULT;
-
     private Class<?> beanClass;
+    /**
+     * 表明这个bean 的定义是否是合成bean
+     */
+    private boolean isSynthetic = false;
 
     List<PropertyValue> propertyValues = new ArrayList<>();
     private ConstructorArgument constructorArgument = new ConstructorArgument();
 
     public GenericBeanDefinition() {
+    }
+
+    public GenericBeanDefinition(Class<?> clz) {
+        this.beanClass = clz;
+        this.beanClassName = clz.getName();
     }
 
     public GenericBeanDefinition(String id, String beanClassName) {
@@ -120,5 +128,14 @@ public class GenericBeanDefinition implements BeanDefinition {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean isSynthetic() {
+        return isSynthetic;
+    }
+
+    public void setSynthetic(boolean synthetic) {
+        isSynthetic = synthetic;
     }
 }

@@ -17,6 +17,10 @@ public class ConstructorArgument {
         this.argumentValues.add(valueHolder);
     }
 
+    public void addArgumentValue(Object value) {
+        this.argumentValues.add(new ValueHolder(value));
+    }
+
     //返回不可更改的list
     public List<ValueHolder> getArgumentValues() {
         return Collections.unmodifiableList(this.argumentValues);

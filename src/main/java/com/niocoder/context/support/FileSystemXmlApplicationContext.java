@@ -4,6 +4,8 @@ import com.niocoder.context.ApplicationContext;
 import com.niocoder.core.io.FileSystemResource;
 import com.niocoder.core.io.Resource;
 
+import java.util.List;
+
 public class FileSystemXmlApplicationContext extends AbstractApplicationContext implements ApplicationContext {
 
     public FileSystemXmlApplicationContext(String configFile) {
