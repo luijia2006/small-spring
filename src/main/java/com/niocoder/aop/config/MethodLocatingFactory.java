@@ -2,11 +2,22 @@ package com.niocoder.aop.config;
 
 import com.niocoder.beans.BeanUtils;
 import com.niocoder.beans.factory.BeanFactory;
+import com.niocoder.beans.factory.BeanFactoryAware;
+import com.niocoder.beans.factory.FactoryBean;
 import com.niocoder.util.StringUtils;
 
 import java.lang.reflect.Method;
 
-public class MethodLocatingFactory {
+/**
+ * Created on 2019/2/16.
+ * <p>
+ * 根据 bean的名称和方法名称返回对应的Method
+ *
+ * @author zlf
+ * @email i@merryyou.cn
+ * @since 1.0
+ */
+public class MethodLocatingFactory implements FactoryBean<Method>, BeanFactoryAware {
 
     private String targetBeanName;
 
@@ -29,6 +40,7 @@ public class MethodLocatingFactory {
      *
      * @param beanFactory
      */
+    @Override
     public void setBeanFactory(BeanFactory beanFactory) {
 
         if (!StringUtils.hasText(this.targetBeanName)) {
@@ -57,7 +69,13 @@ public class MethodLocatingFactory {
      *
      * @return
      */
+    @Override
     public Method getObject() {
         return this.method;
+    }
+
+    @Override
+    public Class<?> getObjectType() {
+        return Method.class;
     }
 }
